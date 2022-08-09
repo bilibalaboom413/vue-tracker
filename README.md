@@ -20,5 +20,5 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Reference
+> https://github.com/bradtraversy/vue-crash-2021/blob/master/src/components/Header.vue
