@@ -5,98 +5,95 @@
       title="Task Tracker" 
       :showAddTask="showAddTask"
       />
-    <div v-show="showAddTask">
-      <AddTask @add-task="addTask" />
-    </div>
-    <Tasks 
-      @toggle-reminder="toggleReminder"
-      @delete-task="deleteTask"
-      :tasks=tasks />
+    <router-view :showAddTask="showAddTask"></router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask.vue'
+// import Tasks from './components/Tasks'
+// import AddTask from './components/AddTask.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Tasks,
-    AddTask
+    // Tasks,
+    // AddTask,
+    Footer
 },
   data() {
     return {
-      tasks: [],
+      // tasks: [],
       showAddTask: false
     }
   },
   methods: {
-    async addTask(task) {
-      const res = await fetch('api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(task)
-      })
+    // async addTask(task) {
+    //   const res = await fetch('api/tasks', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-type': 'application/json',
+    //     },
+    //     body: JSON.stringify(task)
+    //   })
 
-      const data = await res.json()
+    //   const data = await res.json()
 
-      this.tasks = [...this.tasks, data]
-    },
-    async deleteTask(id) {
-      // console.log('task', id)
-      if (confirm('Are you sure to delete?')) {
-        const res = await fetch(`api/tasks/${id}`, {
-          method: 'DELETE'
-        })
+    //   this.tasks = [...this.tasks, data]
+    // },
+    // async deleteTask(id) {
+    //   // console.log('task', id)
+    //   if (confirm('Are you sure to delete?')) {
+    //     const res = await fetch(`api/tasks/${id}`, {
+    //       method: 'DELETE'
+    //     })
 
-        res.status === 200 
-        ? (this.tasks = this.tasks.filter((task) => task.id !== id))
-        : alert("Error deleting task")
-      }
-    },
-    async toggleReminder(id) {
-      const taskToToggle = await this.fetchTask(id)
-      const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+    //     res.status === 200 
+    //     ? (this.tasks = this.tasks.filter((task) => task.id !== id))
+    //     : alert("Error deleting task")
+    //   }
+    // },
+    // async toggleReminder(id) {
+    //   const taskToToggle = await this.fetchTask(id)
+    //   const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
-      const res = await fetch(`api/tasks/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(updTask)
-      })
+    //   const res = await fetch(`api/tasks/${id}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(updTask)
+    //   })
 
-      const data = await res.json()
-      // console.log(id)
-      this.tasks = this.tasks.map((task) => task.id === id ? 
-      {...task, reminder: data.reminder} : task)
-    },
+    //   const data = await res.json()
+    //   // console.log(id)
+    //   this.tasks = this.tasks.map((task) => task.id === id ? 
+    //   {...task, reminder: data.reminder} : task)
+    // },
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
     },
-    async fetchTasks() {
-      const res = await fetch('api/tasks')
+    // async fetchTasks() {
+    //   const res = await fetch('api/tasks')
 
-      const data = await res.json()
+    //   const data = await res.json()
 
-      return data
-    },
-    async fetchTask(id) {
-      const res = await fetch(`api/tasks/${id}`)
+    //   return data
+    // },
+    // async fetchTask(id) {
+    //   const res = await fetch(`api/tasks/${id}`)
 
-      const data = await res.json()
+    //   const data = await res.json()
 
-      return data
-    }
+    //   return data
+    // }
   },
-  async created() {
-    this.tasks = await this.fetchTasks()
-  }
+  // async created() {
+  //   this.tasks = await this.fetchTasks()
+  // }
 }
 </script>
 
