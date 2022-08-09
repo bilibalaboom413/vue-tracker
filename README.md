@@ -21,4 +21,4 @@ npm run lint
 ```
 
 ### Reference
-> https://github.com/bradtraversy/vue-crash-2021/blob/master/src/components/Header.vue
+> https://github.com/bradtraversy/vue-crash-2021
